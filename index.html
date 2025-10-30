@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>NebulaDrop — аирдроп NBL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Официальная демо-страница аирдропа вымышленного токена Nebula (NBL). Подключи кошелёк, выполни задания и забери свою долю." />
+  <!-- Шрифты -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="logo.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app-shell">
+    <header class="topbar">
+      <div class="brand" data-route="home">
+        <img src="logo.svg" alt="NebulaDrop logo" class="brand-logo" />
+        <div class="brand-meta">
+          <span class="brand-name">NebulaDrop</span>
+          <span class="brand-caption">Airdrop for NBL explorers</span>
+        </div>
+      </div>
+      <nav class="main-nav">
+        <button class="nav-link" data-route="home">Главная</button>
+        <button class="nav-link" data-route="airdrop">Аирдроп</button>
+        <button class="nav-link" data-route="token">Токеномика</button>
+        <button class="nav-link" data-route="faq">FAQ</button>
+        <button class="nav-link" data-route="dashboard">Панель</button>
+      </nav>
+      <div class="topbar-actions">
+        <div class="online-badge" id="onlineBadge">● 327 онлайн</div>
+        <button id="connectBtn" class="btn primary">Подключить кошелёк</button>
+      </div>
+    </header>
+
+    <main id="view-root">
+      <!-- экран 1: Главная -->
+      <section id="view-home" class="view active">
+        <div class="hero">
+          <div class="hero-content">
+            <h1>Аирдроп <span class="accent">Nebula (NBL)</span> уже открыт</h1>
+            <p class="subtitle">
+              Реалистичный демо-сайт аирдропа: подключи EVM-кошелёк, выполни миссии и забери токены.
+              Безопасно: мы не просим seed и приватные ключи.
+            </p>
+            <div class="hero-actions">
+              <button class="btn cta" data-route="airdrop">Участвовать</button>
+              <button class="btn ghost" data-route="token">Смотреть токеномику</button>
+            </div>
+            <div class="hero-meta">
+              <div class="pill">Завершение: 31 янв 2026</div>
+              <div class="pill pill-soft">Сеть: EVM (демо)</div>
+              <div class="pill pill-green" id="pointsPill">Ваши баллы: 0</div>
+            </div>
+          </div>
+          <div class="hero-card">
+            <h2 class="hero-card-title">Статус аирдропа</h2>
+            <p class="hero-card-kpi"><span id="liveCounter">12480</span> участников</p>
+            <div class="progress-label">
+              Пул для сообщества: <strong>100&nbsp;000&nbsp;000 NBL</strong>
+            </div>
+            <div class="progress-track">
+              <div class="progress-bar" id="progressBar" style="width: 43%;"></div>
+            </div>
+            <p class="progress-caption">43% пула отмечено к выдаче</p>
+            <button class="btn full" data-route="dashboard">Открыть панель</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- экран 2: Аирдроп -->
+      <section id="view-airdrop" class="view">
+        <h2>Как участвовать в аирдропе</h2>
+        <p class="muted">Выполняй миссии — получай баллы — чем больше баллов, тем больше аллокация.</p>
+        <div class="tasks-grid" id="tasksGrid">
+          <article class="task-card">
+            <h3>1. Подключи кошелёк</h3>
+            <p>MetaMask, Rabby или любой EVM-кошелёк.</p>
+            <button class="btn small" id="connectBtn2">Подключить</button>
+          </article>
+          <article class="task-card task-card--pulse">
+            <h3>2. Вступи в соцсети</h3>
+            <ul class="task-list">
+              <li><label><input type="checkbox" data-points="40"> X/Twitter</label></li>
+              <li><label><input type="checkbox" data-points="40"> Discord</label></li>
+              <li><label><input type="checkbox" data-points="25"> Репост</label></li>
+            </ul>
+          </article>
+          <article class="task-card">
+            <h3>3. Протестируй dApp</h3>
+            <p>Выполни хотя бы 1 действие в демо-dApp (свап, минт, стейк) и получи +100.</p>
+            <label><input type="checkbox" data-points="100"> dApp протестирован</label>
+          </article>
+          <article class="task-card">
+            <h3>4. Забери токены</h3>
+            <p>Мы попросим подписать сообщение. Без газ-комиссии.</p>
+            <button class="btn secondary" id="claimBtn" disabled>Забрать токены</button>
+          </article>
+        </div>
+        <p id="status" class="status-line warning">Кошелёк не подключен</p>
+      </section>
+
+      <!-- экран 3: Токеномика -->
+      <section id="view-token" class="view">
+        <h2>Токеномика NBL</h2>
+        <p class="muted">Вымышленный учебный токен. Структура для демонстрации.</p>
+        <div class="token-grid">
+          <div class="token-box">
+            <h3>Общее предложение</h3>
+            <p class="token-value">1 000 000 000 NBL</p>
+          </div>
+          <div class="token-box">
+            <h3>Аирдроп сообществу</h3>
+            <p class="token-value accent">10% (100 000 000)</p>
+          </div>
+          <div class="token-box">
+            <h3>Команда &amp; адвайзеры</h3>
+            <p class="token-value">15% (вестинг)</p>
+          </div>
+          <div class="token-box">
+            <h3>Фонд экосистемы</h3>
+            <p class="token-value">35%</p>
+          </div>
+          <div class="token-box">
+            <h3>Ликвидность</h3>
+            <p class="token-value">20%</p>
+          </div>
+          <div class="token-box">
+            <h3>Партнёрства</h3>
+            <p class="token-value">20%</p>
+          </div>
+        </div>
+        <div class="token-note">
+          Контракты в папке <code>/contracts</code>: <strong>NBLToken.sol</strong> и <strong>NBLAirdropDistributor.sol</strong>.
+        </div>
+      </section>
+
+      <!-- экран 4: FAQ -->
+      <section id="view-faq" class="view">
+        <h2>FAQ</h2>
+        <div class="faq-list">
+          <details open>
+            <summary>Это настоящий аирдроп?</summary>
+            <p>Нет, это учебный/демо сайт.</p>
+          </details>
+          <details>
+            <summary>Почему нет сети/контракта?</summary>
+            <p>Ты можешь направить этот фронт на свой API/контракт.</p>
+          </details>
+          <details>
+            <summary>Нужно ли платить газ?</summary>
+            <p>Подпись — нет, клайм настоящего ERC-20 — да.</p>
+          </details>
+          <details>
+            <summary>Можно ли сделать рефералку?</summary>
+            <p>Да, через URL-параметры и сохранение на бэкенде.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- экран 5: Панель -->
+      <section id="view-dashboard" class="view">
+        <h2>Панель участника</h2>
+        <p class="muted">Подключённый адрес, баллы и статус заявки.</p>
+        <div class="dash-grid">
+          <div class="dash-card">
+            <h3>Ваш адрес</h3>
+            <p id="userAddress">— не подключен —</p>
+            <button class="btn small" id="reconnectBtn">Подключить / сменить</button>
+          </div>
+          <div class="dash-card">
+            <h3>Ваши баллы</h3>
+            <p class="big" id="pointsDash">0</p>
+            <p class="muted small">*баллы считаются на фронте для демо</p>
+          </div>
+          <div class="dash-card dash-card--green" id="claimStatus">
+            <h3>Статус заявки</h3>
+            <p>Не отправлена</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2025 NebulaDrop. Учебный демо-сайт. Ничего из сказанного не является финсоветом.</p>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.1/dist/ethers.umd.min.js" crossorigin="anonymous"></script>
+  <script src="app.js"></script>
+</body>
+</html>
